@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title User Profile
+    body
+        h1 User Profile
+        if user
+            p Name: #{user.username}
+            p Email: #{user.email}
+        else
+            p User not found
+        br
+        a(href="/") Back to Home

@@ -1,30 +1,26 @@
-const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 const dbPath = path.resolve(__dirname, 'users.db');
 
-// Connect to SQLite database (creates the file if it doesn't exist)
+console.log('Database running on :', dbPath);
+// Connect to SQLite database
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
-        console.error('Error connecting to the database:', err.message);
-    } else {
-        console.log('Connected to the SQLite database.');
+        console.error('Database connection error:', err.message);
+        return;
     }
-});
-
-// Create the `users` table if it doesn't exist
-db.serialize(() => {
-    db.run(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL
-    )
-  `, (err) => {
+    console.log('Connected to database');
+    // creates table 'users'
+    db.run(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    )`, (err) => {
         if (err) {
-            console.error('Error creating users table:', err.message);
+            console.error('Table creation error:', err);
         } else {
-            console.log('Users table is ready.');
+            console.log('Users table created.');
         }
     });
 });

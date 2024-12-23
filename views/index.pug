@@ -1,5 +1,16 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Home Page
+  body
+    h1 Welcome to the Home Page
+    nav
+      ul
+        li
+          a(href="/") Home
+        li
+          a(href="/register") Register
+        li
+          a(href="/users/login") Log In
